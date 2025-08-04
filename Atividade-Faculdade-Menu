@@ -1,0 +1,91 @@
+#MENU DE OPERAÇÕES - ALUNO: JOSUÉ BATISTA DOS SANTOS - ADS - PUC-PR
+
+lista_alunos = [] #lista dos alunos
+
+while True:
+    #exibição do menu principal
+    print ("----Menu Principal----\n"
+           "1 - Estudantes\n"
+           "2 - Professores\n"
+           "3 - Disciplinas\n"
+           "4 - Turmas\n"
+           "5 - Gerenciar Matrículas\n"
+           "6 - Sair")
+
+
+    opcao_principal = int(input("Digite a opção desejada:")) #Var. que armazena a escolha do menu principal
+    if opcao_principal == 1:
+        print("----Estudantes - Menu de Operações----\n"
+                "1 - Incluir\n"
+                "2 - Listar\n"
+                "3 - Atualizar\n"
+                "4 - Excluir\n"
+                "5 - Voltar ao Menu Principal")
+
+        while True:
+
+            op_secundaria = int(input("Digite a opção desejada:")) #INÍCIO DO menu secundário
+            if op_secundaria == 1:
+                print("----Estudantes----Incluir")
+                inclusao = input("Informe o nome do Estudante:")
+                lista_alunos.append(inclusao)
+                print("Aluno Incluído com Sucesso")
+                print("Para incluir novo aluno, digite 1.")
+                print("Para listar, digite 2.")
+                print("Para voltar ao menu principal, digite 5")
+
+            elif op_secundaria == 2:
+                print("----Estudantes----Listar-----")
+
+                for i in range(len(lista_alunos)): #laço de repetição p/ acessar lista
+                    print(lista_alunos[i])
+
+                if not lista_alunos:
+                    print("A lista está vazia")
+
+                print("Para incluir novo aluno, digite 1. Para Listar, digite 2.")
+                print("Para voltar ao menu principal, digite 5")
+
+            elif op_secundaria == 3:
+                print("----Estudantes----")
+                print("Atualizar")
+                print("Para voltar ao Menu Principal digite 5")
+
+            elif op_secundaria == 4:
+                print("----Estudantes----")
+                print("Excluir")
+                print("Para voltar ao Menu Principal digite 5")
+
+            elif op_secundaria == 5:
+                break
+
+
+    elif opcao_principal == 2:
+        print("----Professores---- Menu de Operações----")
+        print("---EM DESENVOLVIMENTO")
+
+    elif opcao_principal == 3:
+        print("----Disciplinas---- Menu de Operações----")
+        print("---EM DESENVOLVIMENTO")
+
+
+    elif opcao_principal == 4:
+        print("----Turmas---- Menu de Operações----")
+        print("---EM DESENVOLVIMENTO")
+
+
+    elif opcao_principal == 5:
+        print("----Matrículas---- Menu de Operações----")
+        print("---EM DESENVOLVIMENTO")
+
+
+    elif opcao_principal == 6:
+        print("Você saiu. Até mais")
+        break
+
+    else:
+        print("Digite uma opção válida")
+
+
+
+
