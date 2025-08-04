@@ -1,0 +1,148 @@
+import json
+
+#esse algorítimo é o melhor padrão de CRUD  a ser seguido dos que eu  fiz
+#Faltam algumas funcionalidades
+
+arquivos = {
+    "Alunos" : "alunos_11.json",
+    "Professores" : "professores_1.json",
+    "Turmas" : "turmas11.json",
+    "Disciplinas" : "disciplinas11.json"
+}
+
+campos = {
+    "Alunos" : ["codigo", "nome", "cpf"],
+    "Professores" : ["codigo", "nome", "registro"],
+    "Turmas" : ["codigo", "nome_turma"],
+    "Disciplinas" : ["codigo", "nome_disciplina", "nome_turma"]
+}
+
+def gravar_arquivo (lista, entidade):
+    with open (arquivos[entidade], "w", encoding="utf-8") as f:
+        json.dump(lista, f, ensure_ascii=False, indent=4)
+
+
+def abrir_arquivo (entidade):
+    try:
+        with open (arquivos[entidade], "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+
+# Padrão de inclusão ser seguido
+def incluir (lista, entidade):
+
+    print(f'{entidade} - Incluir')
+    try:
+        codigo_incluir = int(input("Digite o código:"))
+    except ValueError:
+        print("Valor inválido!")
+        return
+
+    for i in lista:
+        if i["codigo"] == codigo_incluir:
+            print("O código já existe! Inclusão não realizada.")
+            print("Inclua um novo código ou vá para opção 3 - editar!")
+            return
+
+    dicionario = {
+        "codigo": codigo_incluir,
+    }
+
+    for campo in campos[entidade]:
+        if campo != "codigo":
+            dicionario[campo] = input(f'Digite o {campo} :')
+
+    lista.append(dicionario)
+    gravar_arquivo(lista, entidade)
+    print("Inclusão realizada com sucesso!")
+
+
+
+def listar (lista, entidade):
+    print(f'{entidade} - Listar')
+    for i in lista:
+        print(i)
+    if not lista:
+        print("A lista está vazia!")
+        return
+
+def mostrar_main ():
+    print("-------------")
+    print("Menu Pincipal")
+    print("-------------")
+    print("1 - Alunos")
+    print("2 - Professores")
+    print("3 - Turmas")
+    print("4 - Disciplinas")
+    print("0 - Sair")
+    return int(input("Digite a opção Desejada:"))
+
+def submenu (entidade):
+    print(f'--- Menu de Operações --- {entidade}')
+    print("1 - Incluir")
+    print("2 - Listar")
+    print("5 - Voltar ao Menu Principal")
+    return int(input("Digite a opção Desejada:"))
+
+def gerenciamento (entidade):
+
+    lista_qualquer = abrir_arquivo(entidade)
+    while True:
+        try:
+            opcao = submenu(entidade)
+            if opcao == 1:
+                incluir(lista_qualquer, entidade)
+            elif opcao == 2:
+                listar(lista_qualquer, entidade)
+            elif opcao == 5:
+                break
+            else:
+                print("Opção não implementada, digite uma opção válida!")
+                continue
+        except ValueError:
+            print("Opção Inválida!")
+            continue
+
+def main ():
+    while True:
+        try:
+            opcao = mostrar_main()
+            if opcao == 1:
+                gerenciamento("Alunos")
+            elif opcao == 2:
+                gerenciamento("Professores")
+            elif opcao == 3:
+                gerenciamento("Turmas")
+            elif opcao == 4:
+                gerenciamento("Disciplinas")
+            elif opcao == 0:
+                print("Saindo do programa...Até mais!")
+                break
+            else:
+                print("Opção não implementada, digite uma opção válida!")
+                continue
+
+        except ValueError:
+            print("Opção inválida!")
+            continue
+
+main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
